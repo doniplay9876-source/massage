@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>М'ята і Шовк — студія масажу</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20302A;
+    --linen:#F6F1E7;
+    --forest:#1E2E27;
+    --forest-soft:#2A3D34;
+    --sage:#93A788;
+    --gold:#C7A76C;
+    --gold-soft:#E4D3AD;
+    --line:rgba(246,241,231,0.14);
+    --line-dark:rgba(32,48,42,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    background:var(--linen);
+    line-height:1.6;
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em;}
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 30px;
+    border-radius:2px;
+    font-size:15px; font-weight:500;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:background .35s ease, color .35s ease, border-color .35s ease, transform .25s ease;
+  }
+  .btn-gold{background:var(--gold); color:var(--forest);}
+  .btn-gold:hover{background:var(--gold-soft); transform:translateY(-2px);}
+  .btn-line{border-color:currentColor;}
+  .btn-line:hover{background:var(--ink); color:var(--linen); border-color:var(--ink);}
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:40;
+    padding:22px 0;
+    background:linear-gradient(to bottom, rgba(30,46,39,.75), transparent);
+  }
+  header .wrap{display:flex; justify-content:space-between; align-items:center;}
+  .logo{font-family:'Fraunces', serif; font-style:italic; font-size:22px; color:var(--linen);}
+  nav{display:flex; gap:36px;}
+  nav a{color:var(--linen); text-decoration:none; font-size:14px; opacity:.85; transition:opacity .3s;}
+  nav a:hover{opacity:1;}
+  @media (max-width:720px){ nav{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    background:var(--forest);
+    color:var(--linen);
+    display:flex; align-items:center;
+    padding-top:110px; padding-bottom:80px;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center;
+  }
+  @media (max-width:860px){ .hero .wrap{grid-template-columns:1fr;} }
+  .hero-eyebrow{color:var(--sage); font-size:15px; margin-bottom:22px; opacity:0; animation:riseIn .9s ease forwards .1s;}
+  .hero h1{font-size:clamp(40px,6vw,64px); line-height:1.06; margin-bottom:26px; opacity:0; animation:riseIn .9s ease forwards .3s;}
+  .hero p{font-size:18px; max-width:440px; color:var(--gold-soft); margin-bottom:36px; opacity:0; animation:riseIn .9s ease forwards .5s;}
+  .hero .cta-row{display:flex; gap:16px; flex-wrap:wrap; opacity:0; animation:riseIn .9s ease forwards .7s;}
+  @keyframes riseIn{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);}}
+
+  .hero-visual{position:relative; height:440px;}
+  .blob{
+    position:absolute; inset:0;
+    border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;
+    background:linear-gradient(150deg, var(--sage), var(--forest-soft) 55%, var(--gold) 120%);
+    animation:float 9s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{border-radius:42% 58% 65% 35% / 45% 40% 60% 55%; transform:rotate(0deg);}
+    50%{border-radius:58% 42% 40% 60% / 55% 65% 35% 45%; transform:rotate(4deg);}
+  }
+  .hero-visual .ring{
+    position:absolute; inset:34px;
+    border:1px solid rgba(246,241,231,.35);
+    border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;
+  }
+  <!-- Місце для реального фото: заміни .hero-visual на <img src="ваше-фото.jpg"> -->
+
+  /* ---------- Section heading ---------- */
+  .kicker{color:var(--sage); font-size:14px; margin-bottom:14px;}
+  .kicker.dark{color:#7C8B76;}
+  .section-title{font-size:clamp(28px,4vw,40px); max-width:600px; margin-bottom:20px;}
+
+  /* ---------- Про нас ---------- */
+  .about{padding:120px 0; background:var(--linen);}
+  .about .wrap{display:grid; grid-template-columns:1fr 1fr; gap:70px;}
+  @media (max-width:860px){ .about .wrap{grid-template-columns:1fr;} }
+  .about-text p{color:#4B5A52; font-size:16.5px; max-width:480px; margin-top:10px;}
+  .traits{margin-top:38px; display:flex; flex-direction:column; gap:26px;}
+  .trait{display:flex; gap:18px; align-items:flex-start; border-top:1px solid var(--line-dark); padding-top:22px;}
+  .trait:first-child{border-top:none; padding-top:0;}
+  .trait svg{flex-shrink:0; width:26px; height:26px; stroke:var(--gold);}
+  .trait h3{font-size:18px; margin-bottom:6px;}
+  .trait p{color:#5C695F; font-size:15px;}
+
+  /* ---------- Послуги ---------- */
+  .services{padding:120px 0; background:var(--forest); color:var(--linen);}
+  .service-row{
+    display:grid; grid-template-columns:auto 1fr auto auto; gap:26px; align-items:baseline;
+    padding:28px 0; border-top:1px solid var(--line);
+    transition:padding-left .35s ease;
+  }
+  .services .service-row:last-of-type{border-bottom:1px solid var(--line);}
+  .service-row:hover{padding-left:14px; background:rgba(246,241,231,0.03);}
+  .service-num{color:var(--gold); font-family:'Fraunces', serif; font-style:italic; font-size:15px;}
+  .service-name{font-family:'Fraunces', serif; font-size:24px;}
+  .service-name span{display:block; font-family:'Work Sans', sans-serif; font-size:14px; color:#9FAE97; margin-top:6px; font-weight:400;}
+  .service-time{color:#9FAE97; font-size:14px; white-space:nowrap;}
+  .service-price{font-size:20px; color:var(--gold); white-space:nowrap;}
+  @media (max-width:640px){
+    .service-row{grid-template-columns:1fr; gap:6px;}
+    .service-num{display:none;}
+  }
+
+  /* ---------- Процес ---------- */
+  .process{padding:120px 0; background:var(--linen);}
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:30px; margin-top:56px;}
+  @media (max-width:860px){ .steps{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .steps{grid-template-columns:1fr;} }
+  .step{border-top:2px solid var(--sage); padding-top:18px;}
+  .step .num{font-family:'Fraunces', serif; font-style:italic; font-size:26px; color:var(--gold); display:block; margin-bottom:10px;}
+  .step h3{font-size:17px; margin-bottom:8px;}
+  .step p{font-size:14.5px; color:#5C695F;}
+
+  /* ---------- Відгуки ---------- */
+  .reviews{padding:120px 0; background:var(--forest-soft); color:var(--linen);}
+  .review-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:44px; margin-top:56px;}
+  @media (max-width:860px){ .review-grid{grid-template-columns:1fr;} }
+  .review q{font-family:'Fraunces', serif; font-style:italic; font-size:19px; display:block; margin-bottom:20px; color:var(--gold-soft);}
+  .review-author{font-size:14px; color:#B9C4B1;}
+
+  /* ---------- CTA / контакти ---------- */
+  .cta{padding:120px 0; background:var(--linen); text-align:center;}
+  .cta h2{font-size:clamp(30px,5vw,46px); max-width:700px; margin:0 auto 22px;}
+  .cta p{color:#4B5A52; max-width:480px; margin:0 auto 40px;}
+  .contact-grid{display:flex; justify-content:center; gap:56px; margin-top:56px; flex-wrap:wrap; text-align:left;}
+  .contact-grid div{font-size:14px; color:#5C695F;}
+  .contact-grid strong{display:block; font-family:'Fraunces', serif; font-size:17px; color:var(--ink); margin-bottom:6px; font-style:normal;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--forest); color:#9FAE97; padding:48px 0; font-size:14px;}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  footer .logo{color:var(--linen); margin-bottom:4px;}
+  .social{display:flex; gap:18px;}
+  .social a{text-decoration:none; color:#9FAE97; transition:color .3s;}
+  .social a:hover{color:var(--gold);}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .blob{animation:none;}
+    .hero-eyebrow,.hero h1,.hero p,.hero .cta-row{animation:none; opacity:1;}
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">М'ята і Шовк</div>
+    <nav>
+      <a href="#about">Про нас</a>
+      <a href="#services">Послуги</a>
+      <a href="#process">Як проходить</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#contact">Контакти</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="hero-eyebrow">Студія масажу у Києві</div>
+      <h1>Тілу потрібен<br>час на тишу.</h1>
+      <p>М'ята і Шовк — місце, де напруга останніх тижнів нарешті відпускає. Ручна робота, тиша, повна увага до вас — і жодного поспіху.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-gold">Забронювати сеанс</a>
+        <a href="#services" class="btn btn-line" style="color:var(--linen);">Переглянути послуги</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="blob"></div>
+      <div class="ring"></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-text reveal">
+      <div class="kicker dark">Про студію</div>
+      <h2 class="section-title">Робота руками, якій можна довіритись</h2>
+      <p>Ми відкрили М'яту і Шовк для тих, хто звик тримати все під контролем — і хоче хоча б на годину це відпустити. Кожен сеанс будуємо під ваш стан, а не під шаблон: де болить, де затиснуто, де просто хочеться тиші.</p>
+    </div>
+    <div class="traits reveal">
+      <div class="trait">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 21s-7-4.4-9.5-9C.8 8 3 4 7 4c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 4 0 6.2 4 4.5 8-2.5 4.6-9.5 9-9.5 9z"/></svg>
+        <div><h3>Індивідуальний підхід</h3><p>Перед сеансом — коротка розмова про ваш стан, а не універсальна програма.</p></div>
+      </div>
+      <div class="trait">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div><h3>9 років практики</h3><p>Медичний бекграунд і сотні годин практики роботи з хронічною напругою.</p></div>
+      </div>
+      <div class="trait">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 3c2 3 3 5.2 3 7.5a3 3 0 1 1-6 0C9 8.2 10 6 12 3z"/><path d="M6 21c1-3 3-4 6-4s5 1 6 4"/></svg>
+        <div><h3>Натуральні олії</h3><p>Без ароматизаторів і синтетики — тільки те, що спокійно сприймає шкіра.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Послуги та ціни</div>
+      <h2 class="section-title">Чотири сценарії для вашого тіла</h2>
+    </div>
+
+    <div class="reveal">
+      <div class="service-row">
+        <span class="service-num">01</span>
+        <span class="service-name">Класичний масаж тіла<span>М'яке опрацювання всього тіла для загального розслаблення</span></span>
+        <span class="service-time">60 хв</span>
+        <span class="service-price">900 ₴</span>
+      </div>
+      <div class="service-row">
+        <span class="service-num">02</span>
+        <span class="service-name">Глибокотканинний антистрес<span>Робота з затиснутими зонами: шия, плечі, поперек</span></span>
+        <span class="service-time">75 хв</span>
+        <span class="service-price">1200 ₴</span>
+      </div>
+      <div class="service-row">
+        <span class="service-num">03</span>
+        <span class="service-name">Масаж гарячими каменями<span>Тепло базальтових каменів знімає глибоку м'язову напругу</span></span>
+        <span class="service-time">90 хв</span>
+        <span class="service-price">1500 ₴</span>
+      </div>
+      <div class="service-row">
+        <span class="service-num">04</span>
+        <span class="service-name">Масаж стоп і рук<span>Точкова робота для тих, у кого мало часу, але багато втоми</span></span>
+        <span class="service-time">45 хв</span>
+        <span class="service-price">650 ₴</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker dark">Як проходить сеанс</div>
+      <h2 class="section-title">Від запису до відчуття легкості — чотири кроки</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><span class="num">01</span><h3>Запис</h3><p>Обираєте зручний час онлайн або по телефону.</p></div>
+      <div class="step"><span class="num">02</span><h3>Консультація</h3><p>5 хвилин розмови про самопочуття і зони напруги.</p></div>
+      <div class="step"><span class="num">03</span><h3>Сеанс</h3><p>Робота в тиші, приглушене світло, спокійний темп.</p></div>
+      <div class="step"><span class="num">04</span><h3>Після</h3><p>Чай і кілька хвилин, щоб не поспішати назад у ритм дня.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Відгуки</div>
+      <h2 class="section-title">Що кажуть ті, хто вже був</h2>
+    </div>
+    <div class="review-grid reveal">
+      <div class="review">
+        <q>Вперше вийшла з масажу і не відчула, як шия затерпла в дорозі додому. Це того варте.</q>
+        <div class="review-author">Олена, 34 роки</div>
+      </div>
+      <div class="review">
+        <q>Гарячі камені — окремий вид мистецтва. Записуюсь тепер щомісяця, це вже ритуал.</q>
+        <div class="review-author">Максим, 41 рік</div>
+      </div>
+      <div class="review">
+        <q>Атмосфера без зайвого — ніхто не поспішає, ніхто не відволікає. Саме те, що шукала.</q>
+        <div class="review-author">Ірина, 29 років</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap reveal">
+    <div class="kicker dark" style="text-align:center;">Запис</div>
+    <h2>Дайте тілу годину тиші</h2>
+    <p>Достатньо написати або зателефонувати — вільний час підберемо разом.</p>
+    <a href="tel:+380671234567" class="btn btn-gold">Забронювати сеанс</a>
+    <div class="contact-grid">
+      <div><strong>Телефон</strong>+380 67 123 45 67</div>
+      <div><strong>Адреса</strong>м. Київ, вул. Липова, 14</div>
+      <div><strong>Графік</strong>Щодня, 10:00–21:00</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo serif" style="font-style:italic;">М'ята і Шовк</div>
+      <div>Студія масажу · Київ</div>
+    </div>
+    <div class="social">
+      <a href="#">Instagram</a>
+      <a href="#">Telegram</a>
+      <a href="#">Viber</a>
+    </div>
+    <div>© 2026 М'ята і Шовк</div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
